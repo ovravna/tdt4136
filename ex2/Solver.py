@@ -1,27 +1,27 @@
 from queue import PriorityQueue
+from typing import Optional
 
+from ex2 import State
 from ex2.Node import Node_String, Node
 
 
 class Solver:
 
-	def __init__(self, initial_node: Node):
+	def __init__(self, initial_node: Node, state: State):
+		self.state: State = state
 		self.path = []
 		self.visitQueue = []
 		self.priorityQueue = PriorityQueue()
-		# self.start = start
-		# self.goal = goal
-		self.state: Node = initial_node
+		self.node: Node = initial_node
 
 	def solve(self):
 
-		state: Node = self.state
 		count: int = 0
-		self.priorityQueue.put((0, count, state))
+		self.priorityQueue.put((0, count, self.node))
 
 		while not self.path and self.priorityQueue.qsize():
 			closestChild: Node = self.priorityQueue.get()[2]
-			closestChild.create_children()
+			self.state.generate_children_of(closestChild)
 			self.visitQueue.append(closestChild.value)
 
 			child: Node
