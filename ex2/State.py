@@ -39,7 +39,7 @@ Colors = {
 	"A": (colors.bg.orange, colors.fg.black),
 	"B": (colors.bg.orange, colors.fg.black),
 	"#": colors.bg.lightgrey,
-	".": colors.reset,
+	".": colors.bg.black,
 	"w": colors.bg.blue,
 	"m": colors.bg.lightgrey,
 	"f": colors.bg.green,

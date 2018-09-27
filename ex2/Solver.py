@@ -8,7 +8,8 @@ from ex2.State import Board, Colors
 
 class Solver:
 
-	def __init__(self, state: State):
+	def __init__(self, state: State, cartesian_flag: bool = False):
+		self.cartesian_flag: bool = cartesian_flag
 		self.state: State = state
 		self.path = []
 		self.visitQueue = []
@@ -39,14 +40,19 @@ class Solver:
 						break
 
 					count += 1
-					self.priorityQueue.put((child.dist + board_val, count, child))
+					self.priorityQueue.put((board_val + (child.dist if self.cartesian_flag else 0), count, child))
 		if not self.path:
 			print("failed...")
 		return self.path
 
 	def prettify(self):
 		def pretty_colored(key: str, in_path: bool):
-			return colored(colored("x", colors.fg.red) if in_path else key, *Colors[key])
+			k = colored("*", colors.fg.red) if in_path else " "
+			if Board[key] < -1:
+				k = key
+
+
+			return colored(k, *Colors[key])
 
 
 		res = "Path:\n"
