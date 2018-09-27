@@ -38,7 +38,7 @@ if __name__ == '__main__':
 
 
 
-	b = file_to_board("ex2/boards/board-2-4.txt")
+	b = file_to_board("ex2/boards/board-2-1.txt")
 	print(b)
 
 	state: State = Board_State(b)

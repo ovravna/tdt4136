@@ -41,10 +41,11 @@ Colors = {
 	"#": colors.bg.lightgrey,
 	".": colors.bg.black,
 	"w": colors.bg.blue,
-	"m": colors.bg.lightgrey,
+	"m": colors.bg.black,
 	"f": colors.bg.green,
 	"g": colors.bg.cyan,
 	"r": colors.bg.lightgrey,
+
 
 
 }
