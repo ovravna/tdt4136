@@ -1,8 +1,9 @@
 from queue import PriorityQueue
 
+from colors.colors import *
 from ex2 import State
 from ex2.Node import Node
-from ex2.State import Board, _Board
+from ex2.State import Board, Colors
 
 
 class Solver:
@@ -29,36 +30,31 @@ class Solver:
 				if child.value not in self.visitQueue:
 
 					x, y = child.value
-					if _Board[self.state.board[y][x]] == -1:
+					board_val = Board[self.state.board[y][x]]
+					if board_val == -1:
 						continue
 
-					count += 1
-					if not child.dist:
+					if child.dist == 0:
 						self.path = child.path
 						break
-					self.priorityQueue.put((child.dist, count, child))
+
+					count += 1
+					self.priorityQueue.put((child.dist + board_val, count, child))
 		if not self.path:
 			print("failed...")
 		return self.path
 
-	def prittify(self):
-		res = ""
+	def prettify(self):
+		def pretty_colored(key: str, in_path: bool):
+			return colored(colored("x", colors.fg.red) if in_path else key, *Colors[key])
+
+
+		res = "Path:\n"
 		for y in range(len(self.state.board)):
 			for x in range(len(self.state.board[y])):
-				if (x, y) == self.path[0]:
-					res += "A"
-				elif (x, y) == self.path[-1]:
-					res += "B"
-				elif (x, y) in self.path[1:-1]:
-					res += "*"
-				else:
-					res += self.state.board[y][x]
+				res += pretty_colored(self.state.board[y][x],
+				               in_path=(x, y) in self.path[1:-1])
 			res += "\n"
 		return res
-				# elem = self.state.board[y][x]
-				# if elem in Board.values():
-				# 	if elem == Board['start']:
-				# 		pass
-				# 	if elem == Board['goal']:
-				# 		pass
+
 

@@ -1,5 +1,7 @@
 import math
 from typing import Tuple
+
+from colors.colors import colors
 from ex2 import Node
 from ex2.Node import Node
 
@@ -19,18 +21,32 @@ class State:
 	def generate_children_of(self, node: Node):
 		pass
 
-Board = dict(
-	start = 'A',
-	goal = 'B',
-	empty = '.',
-	wall = '#',
-)
 
-_Board = {
+
+Board = {
 	"A": -3,
 	"B": -2,
 	"#": -1,
 	".": 1,
+	"w": 100,
+	"m": 50,
+	"f": 10,
+	"g": 5,
+	"r": 1,
+}
+
+Colors = {
+	"A": (colors.bg.orange, colors.fg.black),
+	"B": (colors.bg.orange, colors.fg.black),
+	"#": colors.bg.lightgrey,
+	".": colors.reset,
+	"w": colors.bg.blue,
+	"m": colors.bg.lightgrey,
+	"f": colors.bg.green,
+	"g": colors.bg.cyan,
+	"r": colors.bg.lightgrey,
+
+
 }
 
 class Board_State(State):
@@ -54,10 +70,10 @@ class Board_State(State):
 		for y in range(len(self.board)):
 			for x in range(len(self.board[y])):
 				elem = self.board[y][x]
-				if elem in Board.values():
-					if elem == Board['start']:
+				if elem in Board:
+					if Board[elem] == -3:
 						self.start: Node = Node((x, y), None, 0)
-					if elem == Board['goal']:
+					if Board[elem] == -2:
 						self.goal: Node= Node((x, y), None, 0)
 
 		self.x_dim = (0, len(self.board[0]))
