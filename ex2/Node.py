@@ -10,8 +10,6 @@ class Node(object):
 		self.children: [Node] = []
 		self.parent: Node = parent
 		self.value = value
-		self.dist: int = 0
-
 
 		if parent:
 			self.path = parent.path[:]
@@ -24,8 +22,10 @@ class Node(object):
 			self.start = start
 			self.goal = goal
 
+		self.dist = self.get_dist()
+
 	def get_dist(self) -> int:
-		pass
+		return 0
 	def create_children(self):
 		pass
 
@@ -34,9 +34,8 @@ class Node(object):
 class Node_String(Node):
 
 	def __init__(self, value: str, parent: Optional[Node],
-	             start: Optional[Node], goal: Optional[Node]):
+	             start: Optional[str], goal: Optional[str]):
 		super(Node_String, self).__init__(value, parent, start, goal)
-		self.dist = self.get_dist()
 
 	def get_dist(self):
 		if self.value == self.goal:

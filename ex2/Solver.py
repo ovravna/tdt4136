@@ -3,18 +3,19 @@ from queue import PriorityQueue
 from ex2.Node import Node_String, Node
 
 
-class Solver_String:
+class Solver:
 
-	def __init__(self, start, goal):
+	def __init__(self, initial_node: Node):
 		self.path = []
 		self.visitQueue = []
 		self.priorityQueue = PriorityQueue()
-		self.start = start
-		self.goal = goal
+		# self.start = start
+		# self.goal = goal
+		self.state: Node = initial_node
 
 	def solve(self):
 
-		state: Node = Node_String(self.start, None, self.start, self.goal)
+		state: Node = self.state
 		count: int = 0
 		self.priorityQueue.put((0, count, state))
 
