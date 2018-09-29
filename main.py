@@ -1,53 +1,31 @@
-from colors.colors import colored, colors
-from ex2.Node import Node
+
 from ex2.Solver import Solver
-from ex2.State import String_State, Board_State, State
-
-if __name__ != '__main__':
-	start = "abcdef"
-	goal = "fcedab"
-
-	initial_node: Node = Node(start, None, 0)
+from ex2.State import Board_State, State
 
 
-	a = Solver(state=String_State(start, goal))
-	a.solve()
-
-	for i in a.path:
-		print(i)
-
-def file_to_board(src):
+# Parse str to [[str]] board
+def file_to_board(src) -> [[str]]:
 	with open(src, 'r') as file:
 		lines = file.readlines()
 	return [[n for n in x if n != '\n'] for x in lines]
 
 
+# Parse txt file to [[str]] board
 def str_to_board(string_board: str) -> [[str]]:
 	return [[n for n in x] for x in string_board.split('\n')]
 
 
 if __name__ == '__main__':
-# 	b = str_to_board("""....................
-# ....................
-# .........######.....
-# ...........A..#..B..
-# .........######.....
-# ....................
-# ....................""")
-# 	print(colored("kake", colors.bg.blue, colors.fg.red), "ninja")
 
+	#runs for all boards
+	for n in range(1, 3):
+		for m in range(1, 5):
+			b = file_to_board("ex2/boards/board-{}-{}.txt".format(n, m))
 
-
-	b = file_to_board("ex2/boards/board-2-1.txt")
-	print(b)
-
-	state: State = Board_State(b)
-	a = Solver(state)
-	a.solve()
-	print("Path:")
-	for i in a.path:
-		print(i)
-	print(a.prettify())
+			state: State = Board_State(b)
+			a = Solver(state, True)
+			a.solve()
+			print(a.prettify())  #prints pretty output
 
 
 
